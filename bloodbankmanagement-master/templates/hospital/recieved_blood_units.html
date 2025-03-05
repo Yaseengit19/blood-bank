@@ -1,0 +1,42 @@
+{% extends 'hospital/hospitalbase.html' %}
+{% block content %}
+<div class="container">
+    <h2>Received Blood Units</h2>
+    <p>Blood units received by your hospital:</p>
+
+    {% if blood_requests %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Blood Group</th>
+                    <th>Units Received</th>
+                    {% comment %} <th>Request Date</th> {% endcomment %}
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in blood_requests %}
+                    <tr>
+                        <td>{{ request.bloodgroup }}</td>
+                        <td>{{ request.unit }}</td>
+                        {% comment %} <td>{{ request.request_date }}</td> {% endcomment %}
+                        <td>
+                            {% if request.status == 'Approved' %}
+                                <span class="badge badge-success">{{ request.status }}</span>
+                            {% elif request.status == 'Pending' %}
+                                <span class="badge badge-warning">{{ request.status }}</span>
+                            {% else %}
+                                <span class="badge badge-danger">{{ request.status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">
+            No blood units received yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

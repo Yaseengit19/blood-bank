@@ -1,0 +1,87 @@
+{% extends 'donor/donorbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+<head>
+    <title>Update Account</title>
+    <style>
+        .update-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .update-container h1 {
+            text-align: center;
+            color: #333;
+        }
+        .update-container form {
+            margin-top: 20px;
+        }
+        .update-container form label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        .update-container form input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .update-container form button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .messages {
+            margin-top: 20px;
+        }
+        .messages .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="update-container">
+        <h1>Update Account</h1>
+
+        <!-- Display Messages -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Update Username Form -->
+        <h2>Update Username</h2>
+        <form method="post" action="{% url 'update_account' %}">
+            {% csrf_token %}
+            {{ username_form.as_p }}
+            <button type="submit" name="update_username">Update Username</button>
+        </form>
+
+        <!-- Update Password Form -->
+        <h2>Update Password</h2>
+        <form method="post" action="{% url 'update_account' %}">
+            {% csrf_token %}
+            {{ password_form.as_p }}
+            <button type="submit" name="update_password">Update Password</button>
+        </form>
+
+        <!-- Back to Profile -->
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'donor-profile' %}">Back to Profile</a>
+        </div>
+    </div>
+</body>
+{% endblock content%}

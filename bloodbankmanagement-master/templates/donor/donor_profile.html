@@ -1,0 +1,122 @@
+{% extends 'donor/donorbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+<head>
+    <title>Donor Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top:20px;
+            border: 1px solid #ccc;
+            border-radius: 40px;
+            background-color:rgb(201, 170, 170);
+        }
+        .profile-container h1 {
+            text-align: center;
+            color: #333;
+        }
+        .profile-container p {
+            font-size: 18px;
+            color: #555;
+        }
+        .profile-container img {
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius:100px;
+            background-color:grey;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745; /* Green background */
+            color: white; /* White text */
+            text-decoration: none; /* Remove underline */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        .buttons{
+            padding-left:570px;
+            padding-top:50px
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Donor Profile</h1>
+        
+        <!-- Display Profile Picture -->
+        {% if donor.profile_pic %}
+            <img src="{{ donor.profile_pic.url }}" alt="Profile Picture">
+        {% else %}
+            <p><strong>Profile Picture:</strong> No image uploaded</p>
+        {% endif %}
+        <div>
+        <!-- Display Donor Information -->
+        <p><strong>Name:</strong> {{ donor.get_name }}</p>
+        {% comment %} <p><strong>Email:</strong> {{ donor.user.email }}</p> {% endcomment %}
+        <p><strong>Blood Group:</strong> {{ donor.bloodgroup }}</p>
+        <p><strong>Address:</strong> {{ donor.address }}</p>
+        <p><strong>Mobile:</strong> {{ donor.mobile }}</p>
+        </div>
+    </div>
+    <div class="buttons">
+    <a href="{% url 'edit_donor_profile' %}" class="btn edit-button">Edit Profile</a>  
+    <a href="{% url 'update_account' %}" class="btn edit-button">Update Account</a>
+    </div>
+    <!-- Eligibility Form -->
+    <h3>Check Eligibility</h3>
+    <form method="POST" autocomplete="off">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_age">Age</label>
+            {{ form.age }}
+        </div>
+        <div class="form-group">
+            <label for="id_weight">Weight (in kg)</label>
+            {{ form.weight }}
+        </div>
+        <div class="form-group">
+            <label for="id_has_health_issues">Do you have any health conditions?[ Any medicines used within a week? ] </label><br>
+           <div style='padding-left:30px'> {{ form.has_health_issues }}</div>
+        </div>
+        <div class="form-group">
+           <br> <label for="id_last_donation_date">Last Donation Date</label>
+            {{ form.last_donation_date }}
+        </div>
+        <button type="submit" class="btn btn-primary">Check Eligibility</button>
+    </form>
+
+    <!-- Eligibility Result -->
+    {% if eligibility_message %}
+        <h3>Eligibility Status</h3>
+        {% if eligibility_message.0 %}
+            <div class="alert alert-success">
+                {{ eligibility_message.1 }}
+            </div>
+        {% else %}
+            <div class="alert alert-danger">
+                {{ eligibility_message.1 }}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+</div>
+  
+
+</body>
+{% endblock content %}

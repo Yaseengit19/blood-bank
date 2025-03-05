@@ -1,0 +1,45 @@
+{% extends 'blood/adminbase.html' %}
+{% block content %}
+<head>
+    <style>
+        /* Flashing animation for emergency requests */
+        @keyframes flash {
+            0% { background-color: red; color: white; }
+            50% { background-color: white; color: red; }
+            100% { background-color: red; color: white; }
+        }
+
+        .emergency-row {
+            animation: flash 1s infinite; /* Apply the flashing animation */
+        }
+    </style>
+</head>
+<h1>Hospital Blood Requests</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Hospital</th>
+            <th>Blood Group</th>
+            <th>Unit</th>
+            <th>Reason</th>
+            <th>Urgency Level</th>
+            <th>Last Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in requests %}
+        <tr>
+            <tr class="{% if request.urgency_level == 'High' %}emergency-row{% endif %}">
+            <td>{{ request.request_by_hospital.name }}</td>
+            <td>{{ request.bloodgroup }}</td>
+            <td>{{ request.unit }}</td>
+            <td>{{ request.reason }}</td>
+            <td>{{ request.urgency_level }}</td>
+            <td>{{ request.last_date }}</td>
+            <td>{{ request.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

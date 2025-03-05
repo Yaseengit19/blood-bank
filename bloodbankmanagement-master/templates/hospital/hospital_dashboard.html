@@ -1,0 +1,146 @@
+{% extends 'hospital/hospitalbase.html' %}
+{% block content %}
+<head>
+    <style>
+        .xyz {
+            color: blue;
+            font-size: 3ex;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-body {
+            text-align: center;
+        }
+        .blood {
+            margin-bottom: 15px;
+        }
+        h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<br><br>
+<div class="container">
+    <h3>Welcome, {{ request.user.hospital.name }}</h3>
+    <div class="row">
+        <!-- Total Requests Made -->
+        <div class="col-sm-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="blood">
+                        <i class="fas fa-sync-alt xyz"></i>
+                    </div>
+                    <div>
+                        Total Requests Made <br>
+                        <strong>{{ requestmade }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests -->
+        <div class="col-sm-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="blood">
+                        <i class="fas fa-hourglass-half xyz"></i>
+                    </div>
+                    <div>
+                        Pending Requests <br>
+                        <strong>{{ requestpending }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Approved Requests -->
+        <div class="col-sm-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="blood">
+                        <i class="fas fa-check-circle xyz"></i>
+                    </div>
+                    <div>
+                        Approved Requests <br>
+                        <strong>{{ requestapproved }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rejected Requests -->
+        <div class="col-sm-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="blood">
+                        <i class="fas fa-times-circle xyz"></i>
+                    </div>
+                    <div>
+                        Rejected Requests <br>
+                        <strong>{{ requestrejected }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
+    <!-- Blood Units Received -->
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="blood">
+                        <i class="fas fa-tint xyz"></i>
+                    </div>
+                    <div>
+                        Blood Units Received <br>
+                        <strong>{{ bloodunitsreceived }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
+    <!-- Recent Blood Requests -->
+    <h3>Recent Blood Requests</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Blood Type</th>
+                <th>Quantity</th>
+                <th>Request Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in blood_requests %}
+            <tr>
+                <td>{{ request.bloodgroup }}</td>
+                <td>{{ request.quantity }}</td>
+                <td>{{ request.request_date }}</td>
+                <td>
+                    {% if request.status == 'Approved' %}
+                        <span class="badge badge-success">{{ request.status }}</span>
+                    {% elif request.status == 'Pending' %}
+                        <span class="badge badge-warning">{{ request.status }}</span>
+                    {% else %}
+                        <span class="badge badge-danger">{{ request.status }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

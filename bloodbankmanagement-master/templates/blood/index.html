@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <style>
+        .xyz{
+          margin-bottom: 0px;
+          background-image: url('{% static "image/homepage.jpg" %}');
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+        .edc{
+          font-size:25px;
+          font-family:Vernon;
+          color:peach;
+        }
+        
+      </style>
+ 
+</head>
+
+
+<body>
+  {% include "blood/navbar.html" %}
+<br>
+<section id="section-jumbotron" style="margin-bottom: 0px;" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center xyz">
+    <div class="container text-center">
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+     
+
+
+<div class="edc">
+    <p>“Welcome to the portal of blood-bank, here you can request and donate blood.”</p>
+</div>        
+
+    <br><br><br><br><br><br><br><br><br>
+          
+    <br><br><br><br>
+      
+  </div>  
+
+
+</section>
+  {% include "blood/footer.html" %}
+
+
+</body>
+
+</html>

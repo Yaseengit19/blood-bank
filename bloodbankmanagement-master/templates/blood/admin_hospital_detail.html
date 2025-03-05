@@ -1,0 +1,15 @@
+{% extends 'blood/adminbase.html' %}
+{% block content %}
+<h1>Hospital Details</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ hospital.name }}</h5>
+        <p class="card-text">
+            <strong>Address:</strong> {{ hospital.address }}<br>
+            <strong>Contact Number:</strong> {{ hospital.contact_number }}<br>
+            <strong>Email:</strong> {{ hospital.email }}<br>
+        </p>
+    </div>
+</div>
+<a href="{% url 'admin-hospital' %}" class="btn btn-secondary mt-3">Back to Hospitals</a>
+{% endblock %}

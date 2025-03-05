@@ -1,0 +1,67 @@
+{% extends 'hospital/hospitalbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{% load static %}
+<head>
+    <style>
+        .label {
+            color: white;
+            padding: 8px;
+        }
+        .success {background-color: #4CAF50;} /* Green */
+        .info {background-color: #2196F3;} /* Blue */
+        .warning {background-color: #ff9800;} /* Orange */
+        .danger {background-color: #f44336;} /* Red */
+        .other {background-color: #e7e7e7; color: black;} /* Gray */
+
+        /* Flashing animation for emergency requests */
+        @keyframes flash {
+            0% { background-color: red; color: white; }
+            50% { background-color: white; color: red; }
+            100% { background-color: red; color: white; }
+        }
+
+        .emergency-row {
+            animation: flash 1s infinite; /* Apply the flashing animation */
+        }
+    </style>
+</head>
+<br><br>
+<div class="container">
+    <H4 class="text-center">My Blood Requests</H4><br>
+    <table class="table table-light table-hover table-bordered table-striped">
+        <thead class="bg-info">
+            <tr>
+                <th scope="col">Hospital Name</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Reason</th>
+                <th scope="col">Urgency Level</th>
+                <th scope="col">Last Date</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in blood_requests %}
+            <tr class="{% if t.urgency_level == 'High' %}emergency-row{% endif %}">
+                <td>{{ t.request_by_hospital.name }}</td>
+                <td>{{ t.bloodgroup }}</td>
+                <td>{{ t.unit }}</td>
+                <td>{{ t.reason }}</td>
+                <td>{{ t.urgency_level }}</td>
+                <td>{{ t.last_date }}</td>
+                <td>{{ t.date }}</td>
+                {% if t.status == 'Approved' %}
+                <td><span class="label success"> Approved</span></td>
+                {% elif t.status == 'Rejected' %}
+                <td><span class="label warning">Rejected</span></td>
+                {% else %}
+                <td><span style="color: white;margin-left: 0px;" class="label info">Pending</span></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

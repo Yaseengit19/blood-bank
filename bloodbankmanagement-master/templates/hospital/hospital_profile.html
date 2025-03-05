@@ -1,0 +1,80 @@
+{% extends 'hospital/hospitalbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{% load static %}
+<head>
+    <title>Hospital Profile</title>
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 40px;
+            background-color: rgb(201, 170, 170);
+        }
+        .profile-container h1 {
+            text-align: center;
+            color: #333;
+        }
+        .profile-container p {
+            font-size: 18px;
+            color: #555;
+        }
+        .profile-container img {
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 100px;
+            background-color: grey;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745; /* Green background */
+            color: white; /* White text */
+            text-decoration: none; /* Remove underline */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        .buttons {
+            padding-left: 550px;
+            padding-top: 50px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Hospital Profile</h1>
+        
+        <!-- Display Profile Picture -->
+        {% if hospital.profile_pic %}
+            <img src="{{ hospital.profile_pic.url }}" alt="Profile Picture">
+        {% else %}
+            <p><strong>Profile Picture:</strong> No image uploaded</p>
+        {% endif %}
+        <div>
+            <!-- Display Hospital Information -->
+            <p><strong>Name:</strong> {{ hospital.name }}</p>
+            <p><strong>Address:</strong> {{ hospital.address }}</p>
+            <p><strong>Contact Number:</strong> {{ hospital.contact_number }}</p>
+            <p><strong>Email:</strong> {{ hospital.email }}</p>
+        </div>
+    </div>
+    <div class="buttons">
+        <a href="{% url 'edit_hospital_profile' %}" class="btn edit-button">Edit Profile</a>  
+        <a href="{% url 'update_hospital_account' %}" class="btn edit-button">Update Account</a>
+    </div>
+</body>
+{% endblock content %}

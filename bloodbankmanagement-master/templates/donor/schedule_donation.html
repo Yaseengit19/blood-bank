@@ -1,0 +1,52 @@
+{% extends 'donor/donorbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{% load static %}
+<head>
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" media="all">
+</head>
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+    <div class="wrapper wrapper--w790">
+        <div style="margin-left: 70px;" class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">SCHEDULE DONATION</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Hospital -->
+                    <div class="form-row">
+                        <div class="name">Hospital</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field form.hospital|attr:'required:true' class="input--style-5" %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donation Date -->
+                    <div class="form-row">
+                        <div class="name">Donation Date</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field form.donation_date|attr:'required:true' class="input--style-5" type="date" %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button class="btn btn--radius-2 btn-danger" type="submit">SCHEDULE</button>
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends 'blood/adminbase.html' %}
+{% block content %}
+<h1>All Hospitals</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for hospital in hospitals %}
+        <tr>
+            <td>{{ hospital.name }}</td>
+            <td>{{ hospital.address }}</td>
+            <td>{{ hospital.contact_number }}</td>
+            <td>{{ hospital.email }}</td>
+            <td>
+                <a href="{% url 'admin-hospital-detail' hospital.id %}" class="btn btn-info">View Details</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

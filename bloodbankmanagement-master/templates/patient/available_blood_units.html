@@ -1,0 +1,31 @@
+{% extends 'patient/patientbase.html' %}
+{% block content %}
+<div class="container">
+    <h2>Available Blood Units</h2>
+    <p>Blood units matching your blood group ({{ patient.bloodgroup }}):</p>
+
+    {% if matching_blood_units %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Blood Group</th>
+                    <th>Units Available</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for Stock in matching_blood_units %}
+                    <tr>
+                        <td>{{ Stock.bloodgroup }}</td>
+                        <td>{{ Stock.unit }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">
+            No blood units found matching your blood group.
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

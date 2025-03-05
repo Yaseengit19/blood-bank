@@ -1,0 +1,19 @@
+<h1>Blood Requests</h1>
+<table>
+    <tr>
+        <th>Hospital</th>
+        <th>Blood Type</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for req in requests %}
+    <tr>
+        <td>{{ req.hospital.name }}</td>
+        <td>{{ req.blood_type }}</td>
+        <td>{{ req.quantity }}</td>
+        <td>{{ req.status }}</td>
+        <td><a href="{% url 'update_request_status' req.id %}">Update Status</a></td>
+    </tr>
+    {% endfor %}
+</table>

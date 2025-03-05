@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hospital Dashboard</h1>
+<h2>Welcome, {{ request.user.hospitalprofile.name }}</h2>
+
+<h3>Blood Requests</h3>
+<table>
+    <tr>
+        <th>Blood Type</th>
+        <th>Quantity</th>
+        <th>Request Date</th>
+        <th>Status</th>
+    </tr>
+    {% for request in blood_requests %}
+    <tr>
+        <td>{{ request.blood_type }}</td>
+        <td>{{ request.quantity }}</td>
+        <td>{{ request.request_date }}</td>
+        <td>{{ request.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'request_blood' %}">Request Blood</a>
+{% endblock %}

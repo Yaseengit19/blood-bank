@@ -1,0 +1,38 @@
+{% extends 'patient/patientbase.html' %}
+{% block content %}
+<div class="container">
+    <h2>Matching Donors</h2>
+    <p>Donors with the same blood group as you ({{ patient.bloodgroup }}):</p>
+
+    {% if matching_donors %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Blood Group</th>
+                    <th>Contact</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donor in matching_donors %}
+                    <tr>
+                        <td>{{ donor.user.get_full_name }}</td>
+                        <td>{{ donor.bloodgroup }}</td>
+                        <td>{{ donor.mobile }}</td>
+                        <td>{{ donor.address }}</td>
+                        <td>
+                            <a href="{% url 'send_donation_request' donor.id %}" class="btn btn-primary">Send Request</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">
+            No donors found with the same blood group.
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

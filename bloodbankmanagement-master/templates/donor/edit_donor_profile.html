@@ -1,0 +1,55 @@
+{% extends 'donor/donorbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+<head>
+    <title>Edit Donor Profile</title>
+    <style>
+        .edit-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .edit-container h1 {
+            text-align: center;
+            color: #333;
+        }
+        .edit-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .edit-container form label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .edit-container form input, .edit-container form select {
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .edit-container form button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-container">
+        <h1>Edit Donor Profile</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+{% endblock content%}

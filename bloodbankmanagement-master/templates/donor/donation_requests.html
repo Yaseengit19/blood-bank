@@ -1,0 +1,40 @@
+{% extends 'donor/donorbase.html' %}
+{% block content %}
+<div class="container">
+    <h2>Donation Requests</h2>
+
+    {% if requests %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Blood Group</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                    <tr>
+                        <td>{{ request.patient.user.get_full_name }}</td>
+                        <td>{{ request.patient.bloodgroup }}</td>
+                        <td>{{ request.request_date }}</td>
+                        <td>{{ request.status }}</td>
+                        <td>
+                            {% if request.status == 'Pending' %}
+                                <a href="{% url 'approve_request' request.id %}" class="btn btn-success">Approve</a>
+                                <a href="{% url 'reject_request' request.id %}" class="btn btn-danger">Reject</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">
+            No donation requests found.
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

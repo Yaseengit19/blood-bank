@@ -1,0 +1,55 @@
+{% extends 'donor/donorbase.html' %}
+{% block content %}
+{% load static %}
+<head>
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" media="all">
+</head>
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+    <div class="wrapper wrapper--w790">
+        <div style="margin-left: 70px;" class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">MY SCHEDULED DONATIONS</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Hospital</th>
+                            <th>Donation Date</th>
+                            <th>Status</th>
+                            <th>Phone Number</th>
+                            <th>Blood Group</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for donation in scheduled_donations %}
+                        <tr>
+                            <td>{{ donation.hospital.name }}</td>
+                            <td>{{ donation.donation_date }}</td>
+                            <td>
+                                {% if donation.status == 'Approved' %}
+                                    <span class="badge badge-success">{{ donation.status }}</span>
+                                    <div class= 'success-message'>"reach hospital between 9am-4am on the day" </div>
+                                {% elif donation.status == 'Rejected' %}
+                                    <span class="badge badge-danger">{{ donation.status }}</span>
+                                {% else %}
+                                    <span class="badge badge-warning">{{ donation.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ donation.donor.mobile }}</td>
+                            <td>{{ donation.donor.bloodgroup }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                {% comment %} <a href="{% url 'donor_dashboard' %}" class="btn btn--radius-2 btn-danger">Back to Dashboard</a> {% endcomment %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
